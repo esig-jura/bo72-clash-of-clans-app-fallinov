@@ -123,6 +123,7 @@ Aide : [Vue 3 "script setup" Cheat Sheet](https://divtec.gitbook.io/vuejs/vue-3-
 
 1. Supprimer le contenu du `<style>` de `src/App.vue`
 2. Copier le contenu du `<body>` de la maquette `_maquette/index.html` dans le `<template>` de `src/App.vue`
+3. Il faut ajouter un `/` au début du chemin de toutes les images HTML `<img src="/img/piece-or-note.jpg" alt="Solde Or">`
 
 ### 4.1 Contenus dynamique
 1. Dans la `<ul class="cartes">` répéter avec une `v-for` le `<li>` pour chaque troupe du tableau `troupes` 
