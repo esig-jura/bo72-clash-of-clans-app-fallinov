@@ -1,86 +1,84 @@
 <script setup>
-import {RouterLink, RouterView} from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+// Cheat Sheet: https://steve-fallet.notion.site/Vue-3-script-setup-Cheat-Sheet-b12192ceae244ecda65f771579ca02bc
+import {onMounted, ref} from 'vue'
+
+// Tableau des troupes
+const troupes = ref([])
+// troupes.value[0].nom = "toto"
+// console.log(troupes.value[0].nom)
+
+// Quand le composant est monté, on va chercher les données
+onMounted(() => {
+  // Fecth est une fonction asynchrone qui permet de faire des requêtes HTTP
+  fetch('https://cocapi.divtec.me/troupes') // Appel à l'API
+      .then(function (reponseAPI) { return  reponseAPI.json() }) // On récupère les données en JSON et on les transforme en objet JavaScript
+      .then((donneesAuFormatJS) => { // On récupère les données au format JavaScript
+        troupes.value = donneesAuFormatJS // On les stocke dans la variable troupes
+      })
+})
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125"
-         height="125"/>
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!"/>
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+  <aside class="solde-or">
+    <div>
+      <img src="/img/piece-or-note.jpg" alt="Solde Or">
+      20 000 pièces d'or
     </div>
+    <div>
+      <img src="/img/troupes-icon.png" alt="Troupes">
+      0 troupes formées
+    </div>
+  </aside>
+  <header>
+    <h1>
+      <img src="/img/clash-of-clans-logo.webp" alt="Logo Clash of Clans">
+    </h1>
+    <p class="description">
+      Construire un village,
+      former un clan et participer à des guerres de clans épiques !
+    </p>
   </header>
-
-  <RouterView/>
+  <main>
+    <ul class="cartes">
+      <li v-for="troupe in troupes">
+        <article>
+          <header :style="`background: linear-gradient(60deg,#3B3B3B 0%, ${troupe.couleur} 100%);`">
+            <img :src="troupe.image"
+                 :alt="troupe.nom">
+          </header>
+          <div class="level" :style="{color: troupe.couleur}">
+            Niveau {{ troupe.niveau }}
+          </div>
+          <h2 class="name">{{ troupe.nom }}</h2>
+          <button :style="{backgroundColor: troupe.couleur}"> Former
+            <img src="/img/piece-or.png" alt="Former"></button>
+          <p class="description">{{ troupe.description }}</p>
+          <footer>
+            <div class="training"
+                 :style="{backgroundColor: troupe.couleur}">
+              <div>{{ troupe.formation }}<sup>sec</sup></div>
+              <div>Formation</div>
+            </div>
+            <div class="speed"
+                 :style="{backgroundColor: troupe.couleur}">
+              <div>{{ troupe.vitesse }}</div>
+              <div>Vitesse</div>
+            </div>
+            <div class="cost"
+                 :style="{backgroundColor: troupe.couleur}">
+              <div>{{ troupe.cout }}</div>
+              <div>Coût</div>
+            </div>
+          </footer>
+        </article>
+      </li>
+    </ul>
+  </main>
+  <footer>
+    &copy; 2023 - Supercell.com
+  </footer>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
+<style scoped lang="sass">
 </style>
