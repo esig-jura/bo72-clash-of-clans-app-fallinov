@@ -23,24 +23,22 @@ console.log(props.or);
   </aside>
 </template>
 
-<style scoped>
-aside {
-  position: fixed;
-  width: 100%;
-  background: white;
-  color: #3B3B3B;
-  font-size: 1.25rem;
-  padding: .5rem;
-  z-index: 9999;
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1em;
-}
+<style scoped lang="sass">
+aside
+  position: fixed
+  width: 100%
+  background: white
+  color: #3B3B3B
+  font-size: 1.25rem
+  padding: .5rem
+  z-index: 9999
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  gap: 1em
 
-img {
-  max-height: 3rem;
-  vertical-align: middle;
-}
+img
+  max-height: 3rem
+  vertical-align: middle
 </style>
