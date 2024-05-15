@@ -7,6 +7,9 @@ import PageFooter from "@/components/PageFooter.vue";
 
 // Tableau des troupes
 const troupes = ref([])
+// Pièces d'or
+let totalOr = ref(100000);
+
 // troupes.value[0].nom = "toto"
 // console.log(troupes.value[0].nom)
 
@@ -23,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <PageTopBarre/>
+  <PageTopBarre :or="totalOr" />
   <PageHeader />
   <main>
     <ul class="cartes">
