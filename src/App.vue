@@ -41,6 +41,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <RouterView />
   <PageTopBarre :or="totalOr" :troupes-formees="nbTroupeFormees" />
   <PageHeader />
   <main>
