@@ -9,10 +9,24 @@ import TroupeCarte from "@/components/TroupeCarte.vue";
 // Tableau des troupes
 const troupes = ref([])
 // Pièces d'or
-let totalOr = ref(100000);
-
+let totalOr = ref(100000)
+// Nombre total de troupes que l'on a formées
+let nbTroupeFormees = ref(0)
 // troupes.value[0].nom = "toto"
 // console.log(troupes.value[0].nom)
+
+// Méthodes
+function formerTroupe(troupe) {
+  // Si on n'a pas assez d'or
+  if (totalOr.value < troupe.cout) {
+    alert("Vous n'avez pas assez d'or mon seigneur !")
+    return // Termine la fonction
+  }
+  // On retire le coût de la troupe du total d'or
+  totalOr.value -= troupe.cout
+  // On incrémente le nombre de troupes formées
+  nbTroupeFormees.value += 1
+}
 
 // Quand le composant est monté, on va chercher les données
 onMounted(() => {
@@ -27,12 +41,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <PageTopBarre :or="totalOr" />
+  <PageTopBarre :or="totalOr" :troupes-formees="nbTroupeFormees" />
   <PageHeader />
   <main>
     <ul class="cartes">
       <li v-for="troupe in troupes">
-          <TroupeCarte :troupe="troupe" :or="totalOr" />
+          <TroupeCarte
+              :troupe="troupe"
+              :or="totalOr"
+              @former="formerTroupe"
+          />
       </li>
     </ul>
   </main>

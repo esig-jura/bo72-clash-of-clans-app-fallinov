@@ -11,6 +11,9 @@ const props = defineProps({
     required: true,
   }
 })
+
+// Définition des événments du composant
+const emit = defineEmits(["former"]);
 </script>
 
 <template>
@@ -23,8 +26,15 @@ const props = defineProps({
       Niveau {{ troupe.niveau }}
     </div>
     <h2 class="name">{{ troupe.nom }}</h2>
-    <button :style="{backgroundColor: troupe.couleur}"> Former
-      <img src="/img/piece-or.png" alt="Former"></button>
+
+    <button
+        @click="emit('former', troupe)"
+        :style="{backgroundColor: troupe.couleur}"
+        :disabled="or < troupe.cout"
+    >
+      Former <img src="/img/piece-or.png" alt="Former">
+    </button>
+
     <p class="description">{{ troupe.description }}</p>
     <footer>
       <div class="training"

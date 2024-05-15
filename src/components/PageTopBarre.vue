@@ -4,6 +4,10 @@ const props = defineProps({
   or: { // Nom de la propriété
     type: Number, // Type de la propriété
     required: true // Propriété obligatoire
+  },
+  troupesFormees: {
+    type: Number,
+    required: true
   }
 })
 console.log(props.or);
@@ -18,7 +22,7 @@ console.log(props.or);
     </div>
     <div>
       <img src="/img/troupes-icon.png" alt="Troupes">
-      0 troupes formées
+      {{ troupesFormees }} troupes formées
     </div>
   </aside>
 </template>
